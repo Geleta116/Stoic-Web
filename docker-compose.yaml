@@ -1,0 +1,59 @@
+version: '3.7'
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - server
+    networks:
+      - my_network
+
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASSWORD=password
+      - DB_NAME=stoicquotes
+      - DB_PORT=3306
+      - PORT=8000
+      - EMAIL_FROM=geleta.daba@a2sv.org
+      - EMAIL_HOST=smtp.gmail.com
+      - EMAIL_PORT=465
+      - EMAIL_SECURE=true
+      - EMAIL_USER=geleta.daba@a2sv.org
+      - EMAIL_PASS="mjwa qaau nrcq kjeu"
+    entrypoint: ["/wait-for-db.sh"]
+    networks:
+      - my_network
+
+  db:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: password
+      MARIADB_DATABASE: stoicquotes
+      MARIADB_USER: root
+      MARIADB_PASSWORD: password
+    volumes:
+      - mariadb_data:/var/lib/mysql
+      - ./server/frameworks/persistence/init.sql:/docker-entrypoint-initdb.d/init-db.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppassword"]
+      interval: 10s
+      retries: 5
+    networks:
+      - my_network
+
+volumes:
+  mariadb_data:
+
+networks:
+  my_network:

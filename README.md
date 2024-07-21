@@ -1,1 +1,1 @@
-# Stoic-Web
+Stoic Web App

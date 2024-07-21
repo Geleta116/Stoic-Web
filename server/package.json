@@ -1,0 +1,31 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "scrape": "node scraper.js",
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "cron": "^3.1.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsdom": "^24.1.0",
+    "mailgen": "^2.0.28",
+    "mariadb": "^3.3.1",
+    "mysql2": "^3.10.1",
+    "nodemailer": "^6.9.14",
+    "puppeteer": "^22.11.2",
+    "request": "^2.88.2",
+    "sequelize": "^6.37.3"
+  }
+}
